@@ -1,156 +1,100 @@
-# 🎬 Smallville Cinema — Quality Assurance
 
-## 📌 Introdução
+# 📋 Introdução — Projeto Smallville Cinema
 
-O Smallville Cinema é uma plataforma desenvolvida para facilitar a
-experiência de compra de ingressos de cinema, proporcionando ao
-usuário mais praticidade e autonomia durante sua jornada de compra.
+## 1. Contexto
 
-A plataforma permite consultar filmes em cartaz e lançamentos,
-verificar cinemas disponíveis, consultar sessões e horários,
-selecionar assentos, escolher o tipo de ingresso, adicionar produtos
-da bomboniere e realizar o processo de compra online.
+O Smallville Cinema é um projeto desenvolvido no contexto da
+formação prática em Quality Assurance da QACoders, utilizando uma
+abordagem de trabalho em equipe e práticas relacionadas ao ciclo
+de desenvolvimento de software.
 
-O projeto foi desenvolvido no contexto da formação prática em
-Quality Assurance da **QACoders**, com participação em um time ágil
-e aplicação de práticas de qualidade durante o desenvolvimento
-da plataforma.
+O projeto tem como proposta desenvolver uma plataforma digital
+para o segmento de cinema, contemplando a jornada de compra de
+ingressos e funcionalidades de apoio à experiência do usuário.
 
----
+## 2. Objetivo da documentação de QA
 
-## 🎯 Objetivo do projeto
+Esta documentação tem como objetivo registrar e organizar as
+atividades realizadas durante o processo de Quality Assurance
+do projeto.
 
-O projeto tem como objetivo facilitar a compra de ingressos e
-produtos da bomboniere, permitindo que o usuário realize sua compra
-online e tenha acesso aos serviços da plataforma sem precisar
-enfrentar filas no cinema.
+O trabalho de QA foi direcionado para a análise dos requisitos,
+regras de negócio e fluxos da aplicação, buscando identificar
+comportamentos esperados, possíveis inconsistências e riscos
+funcionais.
 
-Além da compra de ingressos, a plataforma disponibiliza o
-**Programa de Pontos ClubVille**, permitindo que usuários
-cadastrados acumulem pontos e tenham acesso a benefícios,
-brindes e descontos, de acordo com as regras do programa.
+## 3. Escopo de QA
 
----
+O escopo de testes contempla diferentes áreas da aplicação,
+considerando tanto a experiência do usuário quanto as
+funcionalidades administrativas.
 
-## 👤 Jornada do usuário
-
-O fluxo principal do usuário contempla:
-
-**Cadastro → Login → Home → Filme → Informações do filme →
-Cidade → Sessão → Assentos → Tipo de ingresso → Bomboniere →
-Forma de pagamento → Resumo da compra**
-
-Durante essa jornada, o usuário pode consultar informações da
-sessão, como horário, sala e formato da exibição, incluindo
-sessões 2D e 3D.
-
----
-
-## 🔞 Classificação indicativa
-
-A plataforma utiliza as informações cadastradas pelo usuário
-para realizar a verificação de idade durante o processo de compra.
-
-A classificação indicativa do filme é considerada para determinar
-se o usuário pode prosseguir com a compra da sessão.
-
-Quando a idade do usuário não atende à classificação indicativa
-permitida para o filme, o sistema impede a finalização da compra,
-conforme a regra definida para o projeto.
-
-Essa funcionalidade representa uma importante regra de negócio
-validada durante os testes de Quality Assurance.
-
----
-
-## 👤 Área "Minha Conta"
-
-Usuários autenticados possuem acesso à área **Minha Conta**,
-que disponibiliza:
-
-- Meu Perfil
-- Notificações
-- Meus Pedidos
-- Meus Ingressos
-- Programa de Pontos
-
-Nessa área, o usuário pode consultar e acompanhar suas
-informações cadastrais, pedidos, ingressos e pontos acumulados.
-
----
-
-## 👨‍💼 Fluxo administrativo
-
-A plataforma também possui uma área administrativa destinada
-ao gerenciamento do sistema.
-
-Entre as principais áreas estão:
-
-- Dashboard / Visão geral
-- Filmes
-- Cinemas
-- Sessões
-- Controle de vendas
-- Produtos
-- Estoque
-- Pedidos
-- Ingressos
-- Reembolsos
-- Relatórios
-- Usuários
-- Notificações
-
-Cada área possui funcionalidades específicas relacionadas
-ao gerenciamento da plataforma.
-
----
-
-## 🧪 Atuação em Quality Assurance
-
-Durante o projeto, foram realizadas atividades relacionadas
-à garantia da qualidade do software, incluindo:
+Foram consideradas atividades de:
 
 - Análise de requisitos
 - Análise de regras de negócio
 - Criação de cenários de teste
-- Criação de casos de teste
-- Execução de testes
+- Criação e execução de casos de teste
 - Testes funcionais
+- Testes positivos e negativos
 - Testes de Front-end
 - Testes de Back-end
 - Testes de API
-- Testes positivos e negativos
-- Validação de respostas JSON
-- Validação de Status Code
-- Validação de Schema
-- Validação de tempo de resposta
-- Identificação e documentação de bugs
-- Registro de evidências
+- Validação de contratos e respostas
+- Registro e acompanhamento de bugs
+- Documentação de evidências
 - Automação de testes
 
----
+## 4. Abordagem de testes
 
-## 🛠️ Ferramentas utilizadas
+A estratégia de testes foi baseada na compreensão dos requisitos
+e das regras de negócio do sistema, seguida pela elaboração de
+cenários que permitissem validar os principais fluxos e
+comportamentos da aplicação.
 
-- **Azure DevOps** — gerenciamento de trabalho e testes
-- **Postman** — testes e validações de API
-- **Swagger** — documentação e exploração das APIs
-- **Robot Framework** — automação de testes
-- **Playwright** — automação
-- **Git / GitHub** — versionamento e documentação
+Foram utilizados testes positivos para validar os fluxos
+esperados e testes negativos para verificar o comportamento
+do sistema diante de entradas inválidas, ausência de informações,
+restrições e situações de erro.
 
----
+Também foram realizadas validações relacionadas às APIs,
+incluindo status HTTP, estrutura das respostas, dados retornados,
+regras de negócio e tempo de resposta.
 
-## 📚 Documentação
+## 5. Ferramentas
 
-Este portfólio reúne os principais artefatos relacionados à
-atuação de QA no projeto, incluindo:
+Durante o projeto foram utilizadas diferentes ferramentas para
+apoiar as atividades de QA:
+
+| Ferramenta | Utilização |
+|---|---|
+| Azure DevOps | Gerenciamento de itens, casos e execução de testes |
+| Postman | Testes e validações de API |
+| Swagger | Documentação e exploração das APIs |
+| Robot Framework | Automação de testes |
+| Playwright | Automação |
+| Git / GitHub | Versionamento e documentação |
+
+## 6. Artefatos de QA
+
+Este portfólio reúne os principais artefatos produzidos ou
+utilizados durante o projeto, incluindo:
 
 - Documentação
+- Requisitos e regras de negócio
 - Fluxogramas
 - Diagramas
 - Casos de teste
 - Testes de API
-- Automação
-- Bugs encontrados
-- Evidências dos testes
+- Collections do Postman
+- Scripts de automação
+- Registros de bugs
+- Evidências de execução
+
+## 7. Objetivo profissional
+
+A documentação deste projeto também representa parte da minha
+evolução prática na área de Quality Assurance, demonstrando a
+aplicação de conhecimentos de testes manuais, testes de API,
+análise de requisitos, regras de negócio, documentação e
+automação.
