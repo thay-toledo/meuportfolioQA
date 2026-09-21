@@ -1,39 +1,34 @@
-# Testes de Login
+# Testes de Autenticação e Recuperação de Acesso
 
 ## Objetivo
 
-Validar o fluxo de autenticação da aplicação, garantindo que usuários
-possam acessar o sistema utilizando credenciais válidas e que o sistema
-trate corretamente entradas inválidas.
-
 ## Escopo
 
-Foram realizados testes no:
+### 1. Login
+### 2. Recuperação de senha
+### 3. Redefinição de senha
 
-- Front-end
-- Back-end / API
-- Automação de testes
+## Fluxo funcional
+
+Login → Esqueceu a senha? → Recuperação → Redefinição
+
+## Regras de negócio validadas
+
+## Cenários de teste
+
+## Testes de API
+
+## Testes de Front-end
+
+## Automação
 
 ## Ferramentas
 
-- Azure DevOps
-- Postman
-- Swagger
-- Robot Framework
-- Git / GitHub
-
 ## Cobertura
 
-Foram validados:
+## Evidências
 
-- Login com credenciais válidas
-- Login com senha inválida
-- Login com e-mail inválido
-- Campos obrigatórios
-- Formato do e-mail
-- Mensagens de erro
-- Autenticação e autorização
-- Status HTTP da API
-- Estrutura da resposta
-- Tempo de resposta
-- Cenários automatizados
+## Estrutura do projeto
+
+
+
