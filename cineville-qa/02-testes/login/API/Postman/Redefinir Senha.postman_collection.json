@@ -1,0 +1,979 @@
+{
+  "info": {
+    "_postman_id": "cbabe769-d52f-4e19-974b-e4539175a398",
+    "name": "Redefinir Senha",
+    "description": "Validar a funcionalidade de redefinição de senha, garantindo que apenas tokens válidos permitam a alteração da senha, que todas as validações dos campos sejam aplicadas corretamente e que a API retorne os status e mensagens esperados.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52675394",
+    "_collection_link": "https://go.postman.co/collection/52675394-cbabe769-d52f-4e19-974b-e4539175a398?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Redefinir senha com sucesso",
+      "item": [
+        {
+          "name": "Recuperar Senha - E-mail Válido - Mensagem Link Enviado Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "\r",
+                  "// status\r",
+                  "pm.test(\"Status Code é 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Mensagem\r",
+                  "pm.test(\"Mensagem de sucesso\", function () {\r",
+                  "    pm.expect(response.message).to.eql(\"Um link de recuperação foi enviado.\");\r",
+                  "});\r",
+                  "\r",
+                  "// Tempo de resposta\r",
+                  "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                  "});\r",
+                  "\r",
+                  "// Content-Type\r",
+                  "pm.test(\"Retorna JSON\", function () {\r",
+                  "    pm.response.to.have.header(\"Content-Type\");\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"certoteste16@gmail.com\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api-smallville.qacoders.dev.br/api/forgot-password",
+              "protocol": "https",
+              "host": [
+                "api-smallville",
+                "qacoders",
+                "dev",
+                "br"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validar se o token é valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Validar formato JSON\", function () {\r",
+                  "    pm.response.json();\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"token\":\"ac66f510e7118269dc737985be502121715db379\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"Deucerto@123\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "smallville.qacoders.dev.br/reset-password?token=c6ddd14a2798ec9f2ggg",
+              "host": [
+                "smallville",
+                "qacoders",
+                "dev",
+                "br"
+              ],
+              "path": [
+                "reset-password"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "c6ddd14a2798ec9f2ggg"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "validação  Status Code 429",
+      "item": [
+        {
+          "name": "Login-Sucesso Copy",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 2",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 2",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 2",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 2",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 3",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login-Sucesso Copy 4",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validar excesso de requisição",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status Code deve ser 429\", function () {\r",
+                  "    pm.response.to.have.status(429);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"validar excesso de requisição\", function () {\r",
+                  "    pm.expect(\"ThrottlerException: Too Many Requests\").exist\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}login",
+              "host": [
+                "{{url}}login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "StartFragmentValidar o mecanismo de proteção contra excesso de requisições (Rate Limit), garantindo que a API limite tentativas consecutivas em um determinado período para prevenir ataques de força bruta e uso abusivo dos endpoints.EndFragment"
+    },
+    {
+      "name": "Token expirado (5horas)",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"252b37c353c254c39a87a9856a04e65439ee15d2\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"Deucerto@123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "token valido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time até 2 segundos\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Resposta é um JSON válido\", function () {\r",
+              "    pm.response.json();\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "\r",
+              "pm.test(\"Senha alterada com sucesso!\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"Senha alterada com sucesso!\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\": \"47ca54b1ba16c3cba0084e953aa038c3c324db46\",\r\n    \"newPassword\": \"CertoO@123\",\r\n    \"confirmNewPassword\": \"CertoO@123\"\r\n}\r\n\r\n\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Token Invalido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code deve ser 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time até 2 segundos\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Resposta é um JSON válido\", function () {\r",
+              "    pm.response.json();\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "\r",
+              "pm.test(\"Token inválido ou expirado.\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"Token inválido ou expirado.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"519ed4d1be62e670f2866c24cd2baca8870f28ed\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"Deucerto@123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Token vazio",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status Code é 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time menor que 2 segundos\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Resposta é um JSON válido\", function () {\r",
+              "    pm.response.json();\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem de Token obrigatório\", function () {\r",
+              "    pm.expect(response.message[0]).to.eql(\"O campo Token é obrigatório.\");\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"Deucerto@123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nova senha - Vazia",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status Code é 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem: senha deve ter no mínimo 6 caracteres\", function () {\r",
+              "    pm.expect(response.message).to.include(\"A senha deve ter no mínimo 6 caracteres.\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem: campo Confirmar senha é obrigatório\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Confirmar senha é obrigatório.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"ac66f510e7118269dc737985be502121715db379\",\r\n  \"newPassword\": \"\",\r\n  \"confirmNewPassword\": \"\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "confirmação de Senha - Vazia",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status Code é 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Mensagem: campo Confirmar senha é obrigatório\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Confirmar senha é obrigatório.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"ac66f510e7118269dc737985be502121715db379\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Senhas diferentes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code é 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"ac66f510e7118269dc737985be502121715db379\",\r\n  \"newPassword\": \"sxxxxfv\",\r\n  \"confirmNewPassword\": \"gjjguig\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Senha fora do padrão",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"ac66f510e7118269dc737985be502121715db379\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"xjhsjsvbggff\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nova senha diferente da anterior",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\":\"97dd50cda91eac2b2dd8cbae8cbd4abee8b526d6\",\r\n  \"newPassword\": \"Deucerto@123\",\r\n  \"confirmNewPassword\": \"Deucerto@123\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Requisição sem Body",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status Code é 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"O campo Token é obrigatório.\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Token é obrigatório.\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem: campo Confirmar senha é obrigatório\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Confirmar senha é obrigatório.\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"A senha deve ter no mínimo[6] caracteres.\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Confirmar senha é obrigatório.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{urlRedefinir Senha}}reset-password",
+          "host": [
+            "{{urlRedefinir Senha}}reset-password"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

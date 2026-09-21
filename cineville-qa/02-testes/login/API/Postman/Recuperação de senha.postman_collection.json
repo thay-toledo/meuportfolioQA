@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "a9f8e64c-fd11-4d58-b728-98beec504c7b",
+    "name": "Recuperação de senha",
+    "description": "Validar o funcionamento da funcionalidade de recuperação de senha, verificando o comportamento da API, as validações do campo de e-mail e o envio do link de recuperação.\n\n##### Regra de Negócio – **E-mail Não Cadastrado**\n\n**E-mail não cadastrado**  \nInformar um e-mail que não esteja cadastrado no sistema.  \nValidar que a mensagem **\"Um link de recuperação foi enviado.\"** seja exibida ao usuário.  \nValidar que **nenhum link/token de recuperação seja enviado** para o e-mail informado",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52675394",
+    "_collection_link": "https://go.postman.co/collection/52675394-a9f8e64c-fd11-4d58-b728-98beec504c7b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Recuperar Senha - E-mail Válido - Mensagem Link Enviado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// status\r",
+              "pm.test(\"Status Code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Mensagem\r",
+              "pm.test(\"Mensagem de sucesso\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"Um link de recuperação foi enviado.\");\r",
+              "});\r",
+              "\r",
+              "// Tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "// Content-Type\r",
+              "pm.test(\"Retorna JSON\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"certoteste16@gmail.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-smallville.qacoders.dev.br/api/forgot-password",
+          "protocol": "https",
+          "host": [
+            "api-smallville",
+            "qacoders",
+            "dev",
+            "br"
+          ],
+          "path": [
+            "api",
+            "forgot-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Recuperar Senha - E-mail Não Cadastrado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// status\r",
+              "pm.test(\"Status Code é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Mensagem\r",
+              "pm.test(\"Mensagem de sucesso\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"Um link de recuperação foi enviado.\");\r",
+              "});\r",
+              "\r",
+              "// Tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "// Content-Type\r",
+              "pm.test(\"Retorna JSON\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"xxxteste@gmail.com\"\r\n   \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-smallville.qacoders.dev.br/api/forgot-password",
+          "protocol": "https",
+          "host": [
+            "api-smallville",
+            "qacoders",
+            "dev",
+            "br"
+          ],
+          "path": [
+            "api",
+            "forgot-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Recuperar Senha - Campo E-mail Vazio",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code deve ser 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Tempo de resposta menor que 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "pm.test(\"Resposta deve estar em formato JSON\", function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Mensagem 'O campo Email é obrigatório.' deve ser exibida\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Email é obrigatório.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"\"\r\n}\r\n"
+        },
+        "url": {
+          "raw": "https://api-smallville.qacoders.dev.br/api/forgot-password",
+          "protocol": "https",
+          "host": [
+            "api-smallville",
+            "qacoders",
+            "dev",
+            "br"
+          ],
+          "path": [
+            "api",
+            "forgot-password"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

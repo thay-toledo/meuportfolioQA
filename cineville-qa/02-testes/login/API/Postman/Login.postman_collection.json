@@ -1,0 +1,492 @@
+{
+  "info": {
+    "_postman_id": "9f955bba-6454-4dfe-b74d-77d2461de6e4",
+    "name": "Login",
+    "description": "Requisição tem como objetivo autenticar um usuário no sistema utilizando e-mail e senha. Quando as credenciais são válidas, a API retorna um token de autenticação (JWT), que será utilizado para acessar endpoints protegidos.\n\n**Principais validações**\n\nStatus Code  \nTempo de resposta  \nContent-Type  \nExistência do token  \nToken não vazio  \nToken é uma string  \nMensagem de sucesso.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52675394",
+    "_collection_link": "https://go.postman.co/collection/52675394-9f955bba-6454-4dfe-b74d-77d2461de6e4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login - Senha inválida",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// 1. Status Code\r",
+              "pm.test(\"Status Code deve ser 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});\r",
+              "\r",
+              "// 2. Mensagem de erro\r",
+              "pm.test(\"Mensagem de erro correta\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"E-mail ou senha incorretos.\");\r",
+              "});\r",
+              "\r",
+              "// 3. Content-Type\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+              "        .to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "// 4. Não retorna token\r",
+              "pm.test(\"Não retorna token\", function () {\r",
+              "    pm.expect(response.data).to.be.undefined;\r",
+              "});\r",
+              "\r",
+              "// 5. Tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 3000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"xxxcerto123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/login",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login-Sucesso",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Status Code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Tempo de resposta menor que 627 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(627);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Token existe\", function () {\r",
+              "    pm.expect(response.data).to.have.property(\"token\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Token não está vazio\", function () {\r",
+              "    pm.expect(response.data.token).to.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Token é uma string\", function () {\r",
+              "    pm.expect(response.data.token).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem de sucesso\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"Login realizado com sucesso.\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"certoteste16@gmail.com\",\r\n    \"password\": \"Certo123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}login",
+          "host": [
+            "{{url}}login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login email-inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// 1. Status Code\r",
+              "pm.test(\"Status Code deve ser 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});\r",
+              "\r",
+              "// 2. Mensagem de erro\r",
+              "pm.test(\"Mensagem de erro correta\", function () {\r",
+              "    pm.expect(response.message).to.eql(\"E-mail ou senha incorretos.\");\r",
+              "});\r",
+              "\r",
+              "// 3. Content-Type\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+              "        .to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "// 4. Não retorna token\r",
+              "pm.test(\"Não retorna token\", function () {\r",
+              "    pm.expect(response.data).to.be.undefined;\r",
+              "});\r",
+              "\r",
+              "// 5. Tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 3000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"valeuteste@gmail.com\",\r\n    \"password\": \"Teste123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}login",
+          "host": [
+            "{{url}}login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login - Campos obrigatórios",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// Status Code\r",
+              "pm.test(\"Status Code deve ser 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "// Mensagem do Email\r",
+              "pm.test(\"Mensagem de Email obrigatório\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Email é obrigatório.\");\r",
+              "});\r",
+              "\r",
+              "// Mensagem da Senha\r",
+              "pm.test(\"Mensagem de Senha obrigatória\", function () {\r",
+              "    pm.expect(response.message).to.include(\"O campo Senha é obrigatório.\");\r",
+              "});\r",
+              "\r",
+              "// Content-Type\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+              "        .to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "// Não retorna token\r",
+              "pm.test(\"Não retorna token\", function () {\r",
+              "    pm.expect(response.data).to.be.undefined;\r",
+              "});\r",
+              "\r",
+              "// Tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 3000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/login",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login - Campos obrigatórios",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/login",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Length",
+              "value": "79"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 17:03:44 GMT"
+            },
+            {
+              "key": "Etag",
+              "value": "W/\"4f-ci6v58CBVnjrQ7E6/XmEEKjuFPE\""
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "X-Ratelimit-Limit",
+              "value": "5"
+            },
+            {
+              "key": "X-Ratelimit-Remaining",
+              "value": "3"
+            },
+            {
+              "key": "X-Ratelimit-Reset",
+              "value": "587"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": [\n        \"O campo Email é obrigatório.\",\n        \"O campo Senha é obrigatório.\"\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "requisição de 5 tentativas login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "// Validação do Content-Type\r",
+              "pm.test(\"Content-Type é application/json\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "// Validação do tempo de resposta\r",
+              "pm.test(\"Tempo de resposta menor que 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// Controle da quantidade de tentativas\r",
+              "let count = pm.collectionVariables.get(\"loginAttempts\");\r",
+              "\r",
+              "count = count ? Number(count) + 1 : 1;\r",
+              "\r",
+              "pm.collectionVariables.set(\"loginAttempts\", count);\r",
+              "\r",
+              "// Validações\r",
+              "if (count < 6) {\r",
+              "\r",
+              "    pm.test(`Tentativa ${count} deve retornar 401`, function () {\r",
+              "        pm.response.to.have.status(401);\r",
+              "    });\r",
+              "\r",
+              "} else {\r",
+              "\r",
+              "    pm.test(`Tentativa ${count} deve retornar 429`, function () {\r",
+              "        pm.response.to.have.status(429);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Mensagem de erro deve ser 'ThrottlerException: Too Many Requests'\", function () {\r",
+              "        pm.expect(response.message).to.eql(\"ThrottlerException: Too Many Requests\");\r",
+              "    });\r",
+              "\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"certoteste16@gmail.com\",\r\n    \"password\": \"xxste123@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/login",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login com sucesso ADMIN",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.collectionVariables.set(\"token\", response.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"admin@system.com\",\r\n    \"password\": \"Admin@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}login",
+          "host": [
+            "{{url}}login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login- com sucesso outro usuario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"admin@system.com\",\r\n  \"password\": \"Admin@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}login",
+          "host": [
+            "{{url}}login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "loginAttempts",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
