@@ -1,0 +1,4 @@
+robotframework==7.*
+robotframework-requests==0.9.*
+robotframework-seleniumlibrary==6.*
+faker==40.*

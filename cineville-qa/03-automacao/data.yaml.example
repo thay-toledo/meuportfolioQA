@@ -1,0 +1,6 @@
+# Copie este arquivo para data.yaml e preencha com suas credenciais
+# NÃO faça commit do arquivo data.yaml (ele está no .gitignore)
+
+Login:
+  USER: seu_email@qacoders.com
+  PASSWORD: sua_senha_aqui

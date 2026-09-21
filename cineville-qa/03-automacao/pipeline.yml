@@ -1,0 +1,68 @@
+name: Teste API e Web com Robot
+ 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+ 
+jobs:
+   test:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: clone do projeto
+        uses: actions/checkout@v4
+        
+      - name: configuração do python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+ 
+      - name: Instalação de dependência
+        run: |
+          pip install -r requirements.txt
+          
+      - name: rodando os testes
+        run: |
+          robot --name "API & Web Tests" --outputdir results/ tests/ 
+ 
+      - name: Salvando os resultados dos testes
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultado-testes
+          path: results/
+
+   deploy:
+    name: configurar site
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+    - test
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ github.server_url }}/${{ github.repository }}
+            
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+  
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with: 
+          name: resultado-testes
+          path: results/
+  
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: results/
+  
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

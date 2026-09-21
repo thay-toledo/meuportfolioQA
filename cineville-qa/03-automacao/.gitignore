@@ -1,0 +1,38 @@
+# Resultados de execução do Robot Framework
+results/*
+!results/.gitkeep
+logs/
+tests/web_tests/logs/
+
+# Ambientes virtuais Python
+venv/
+.venv/
+env/
+
+# Arquivos de cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dados sensíveis
+fixtures/data.yaml
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Selenium screenshots
+*.png
+
+# Robot Framework outputs
+output.xml
+log.html
+report.html
